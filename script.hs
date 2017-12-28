@@ -25,10 +25,10 @@ main = shakeArgs shakeOptions{shakeFiles=buildDir} $ do
         putNormal $ "Cleaning files in " <> "_site"
         removeFilesAfter "_site" ["//*"]
 
-    "_site/.travis.yaml" %> \fp -> do
-        need [ ".travis.yaml" ]
-        copyFile'  ".travis.yaml" fp
+    "_site/.travis.yml" %> \fp -> do
+        need [ ".travis.yml" ]
+        copyFile'  ".travis.yml" fp
     phony "rebuild" $
         cmd_ "stack" "exec" "--" "primetype" "rebuild"
     phony "build" $
-        need [ "_site/.travis.yaml", "rebuild"]
+        need [ "_site/.travis.yml", "rebuild"]

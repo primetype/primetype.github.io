@@ -24,23 +24,11 @@ main = shakeArgs shakeOptions{shakeFiles=buildDir} $ do
         removeFilesAfter buildDir ["//*"]
         putNormal $ "Cleaning files in " <> "_site"
         removeFilesAfter "_site" ["//*"]
-        putNormal $ "Cleaning files in " <> "www"
-        removeFilesAfter "www" ["//*"]
 
-    phony "build" $
-        cmd_ "stack" "exec" "--" "primetype" "rebuild"
+    "_site/.travis.yaml" %> \fp -> do
+        need [ ".travis.yaml" ]
+        copyFile'  ".travis.yaml" fp
     phony "rebuild" $
-        need ["build"]
-    "www/.git/HEAD" %> \_ -> do
-        cmd_ "rm -rf www"
-        cmd_ "git" "clone" "git@github.com:primetype/primetype.github.io.git" "www"
-    phony "commit" $ do
-        need ["rebuild", "www/.git/HEAD"]
-        cmd_ (Cwd "www") "rm" "-r" "-f" "*"
-        cmd_ (Cwd "www") "touch" ".nojekyll"
-        writeFile' "www/CNAME" "www.primetype.co.uk"
-        c <- fmap (\c -> "../_site" </> c) <$> getDirectoryContents "_site"
-        cmd_ (Cwd "www") "cp" "-r" c "."
-        cmd_ (Cwd "www") "git" "add" "."
-        cmd_ (Cwd "www") "git" "commit" ["--message=\"Update website\""]
-        cmd_ (Cwd "www") "git" "push" "origin" "master"
+        cmd_ "stack" "exec" "--" "primetype" "rebuild"
+    phony "build" $
+        need [ "_site/.travis.yaml", "rebuild"]

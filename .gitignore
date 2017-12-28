@@ -1,3 +1,11 @@
-.stack-work
-future
 .git
+
+.stack-work
+.shake_build
+
+*swp
+
+_cache
+_site
+
+www

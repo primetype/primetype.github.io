@@ -1,0 +1,46 @@
+<section class="mbr-section article mbr-parallax-background mbr-after-navbar" id="msg-box8-p" style="background-image: url(/assets/images/desert.jpg); padding-top: 200px; padding-bottom: 160px;">
+  <div class="mbr-overlay" style="opacity: 0.7; background-color: rgb(34, 34, 34);">
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 text-xs-center">
+        <h3 class="mbr-section-title display-2">
+          $title$
+        </h3>
+        <div class="lead">
+          <p>
+            $description$
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mbr-section article mbr-section__container" id="article-content" style="background-color: white; padding-top: 20px; padding-bottom: 20px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2 article">
+        $body$
+      </div>
+      <div class="row">
+        <div class="col-xs-8 col-xs-offset-2 article">
+          <div id="disqus_thread"></div>
+          <script>
+            var disqus_config = function () {
+              this.page.url = 'http://primetype.co.uk$url$';
+              this.page.identifier = '$path$'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+            (function() { // DON'T EDIT BELOW THIS LINE
+              var d = document, s = d.createElement('script');
+              s.src = 'https://primetype.disqus.com/embed.js';
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

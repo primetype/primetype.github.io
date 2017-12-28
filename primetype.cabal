@@ -1,0 +1,21 @@
+name:                primetype
+version:             0.1.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/NicolasDP/primetype#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Nicolas Di Prima
+maintainer:          nicolas@primetype.co.uk
+copyright:           Nicolas Di Prima <nicolas@primetype.co.uk>
+category:            Crypto
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+executable primetype
+  main-is:             site.hs
+  default-language:    Haskell2010
+  ghc-options:         -threaded
+  build-depends:       base >= 4.7 && < 5,
+                       hakyll

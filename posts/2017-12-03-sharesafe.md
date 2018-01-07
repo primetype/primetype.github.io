@@ -34,7 +34,7 @@ by `n` participants. These `n` participants only shares their `n` public keys
 to create a secret. They have decided that `m` participants (0 < `m` <= `n`)
 are needed to retrieve the Secret.
 
-Very simple : `n` participants only share their secret keys. All or a subset are
+Very simple : `n` participants only share their public keys. All or a subset are
 needed to recover the secret.
 
 ## What's with `sharesafe` ?

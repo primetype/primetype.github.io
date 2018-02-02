@@ -52,7 +52,7 @@ deploy:
   provider: pages
   github_token: $GITHUB_TOKEN
   target_branch: master
-  fqdn: www.primetype.co.uk
+  fqdn: primetype.co.uk
   email: nicolas@primetype.co.uk
   name: Nicolas Di Prima
   local_dir: _site

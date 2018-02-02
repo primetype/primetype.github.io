@@ -48,6 +48,10 @@ script:
   ./script.hs clean
   ./script.hs build
   ./script.hs rebuild
+  pwd
+  ls
+  ls _site
+  ls ${TRAVIS_BUILD_DIR}/_site
   set +ex
 
 deploy:

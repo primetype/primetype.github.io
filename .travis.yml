@@ -45,14 +45,7 @@ script:
       stack --no-terminal build --install-ghc
       ;;
   esac
-  ./script.hs clean
   ./script.hs build
-  ./script.hs rebuild
-  pwd
-  ls
-  ls _site
-  ls ${TRAVIS_BUILD_DIR}/_site
-  set +ex
 
 deploy:
   skip_cleanup: true
@@ -62,6 +55,6 @@ deploy:
   fqdn: www.primetype.co.uk
   email: nicolas@primetype.co.uk
   name: Nicolas Di Prima
-  local_dir: ${TRAVIS_BUILD_DIR}/_site
+  local_dir: _site
   on:
     branch: sources

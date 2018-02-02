@@ -46,6 +46,7 @@ script:
       ;;
   esac
   ./script.hs build
+  set +ex
 
 deploy:
   skip_cleanup: true

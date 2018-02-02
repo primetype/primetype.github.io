@@ -45,7 +45,9 @@ script:
       stack --no-terminal build --install-ghc
       ;;
   esac
+  ./script.hs clean
   ./script.hs build
+  ./script.hs rebuild
   set +ex
 
 deploy:

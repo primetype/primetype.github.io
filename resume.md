@@ -30,9 +30,27 @@ Projects:
   Verifiable Secret Sharing* (**PVSS**) in a library and CLI tool for simple
   secret sharing.
 
-#### [Inchora Direct](https://www.inchora.com/) (May 2017 — present)
+#### [IOHK](https://iohk.io) (January 2018 — present)
 
-I am one of the lead developer of the TenantShop project, entirely written in
+I am part of the [Bourbaki](https://iohk.io/team/#bourbaki) team, the specialised
+cryptophic engineers team, implementing and maintaining the cryptographic stack
+of the cardano blockchain:
+
+Projects:
+
+* [**cardano-crypto**](https://github.com/input-output-hk/cardano-crypto): the
+  haskell library implementing all the cryptographic primitives for the cardano
+  blockchain;
+* [**rust-cardano**](https://github.com/input-output-hk/rust-cardano): the rust
+  libraries implementing all the primitives of the cardano blockchain as well
+  as higher level APIs for managing a Cardano Wallet, talking to the cardano
+  blockchain protocols, creating transactions and more. The rust implementation
+  has been written a way to support many platform : windows, linux, osx and
+  web-assembly.
+
+#### [Inchora Direct](https://www.inchora.com/) (May 2017 — January 2018)
+
+I worked as one of the lead developer of the TenantShop project, entirely written in
 **Haskell**.
 
 #### [1Spatial Inc](http://wwww.1spatial.com) (January 2016 — May 2017)

@@ -42,7 +42,7 @@ script:
   set -ex
   case "$BUILD" in
     stack)
-      stack --no-terminal build --install-ghc
+      stack --jobs 1 --no-terminal build --install-ghc
       ;;
   esac
   ./script.hs build

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="{{ config.description }}">
+    <meta name="author" content="{{ config.extra.author.name }}">
+    <title>{{ config.title }}</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+          crossorigin="anonymous">
+
+    <link href="{{ config.base_url }}/style.css" rel="stylesheet">
+
+</head>
+
+<body role="document" id="home">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+            {{ config.title }}
+            <!-- Security and privacy as a prime requisite  -->
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    {% set home_url = get_url(path="./_index.md") %}
+                    {% set blog_url = get_url(path="./blog/_index.md") %}
+                    <a class="nav-link" href="{{ home_url }}#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ blog_url }}">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ home_url }}#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ home_url }}#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% set reclame = get_page(path="reclame.md") %}
+    {% set about = get_page(path="about.md") %}
+
+    <section class="section" id="reclame">
+        <div class="jumbotron bg-danger text-white jumbotron-fluid reclame">
+            <div class="container">
+                <div class="row">
+                    {% if reclame.extra.fa %}
+                    <div class="col-xs-12 col-sm-12 col-md-2 text-center">
+                        <span class="h-resp-fa">
+                            <i class="fas {{ reclame.extra.fa.class }}"></i>
+                        </span>
+                    </div>
+                    {% endif %}
+                    <div class="col">
+                        <h1 class="h-title">{{ reclame.title }}</h1>
+                        <p class="h-lead">{{ reclame.description }}</p>
+                        {% if reclame.extra.button %}
+                        <a class="btn btn-lg btn-success h-button"
+                           href="{{ reclame.extra.button.link }}"
+                           data-toggle="tooltip"
+                           data-placement="bottom"
+                           title="{{ reclame.extra.button.tooltip }}"
+                           {% if     reclame.extra.button.disabled %}
+                           disabled
+                           {% endif %}
+                           >
+                           {{ reclame.extra.button.title }}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="page">
+                {{ reclame.content | safe }}
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="jumbotron jumbotron-fluid reclame">
+            <div class="container">
+                <h1 class="display-2">{{ about.title }}</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="page">
+                    {{ about.content | safe }}
+            </div>
+        </div>
+    </section>
+    {% endblock content %}
+
+    <section class="section footer bg-dark text-white" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md ">
+                    <strong>Contacts</strong><br>
+                    Email:
+                    <a class="btn btn-outline-success" href="mailto:info@primetype.co.uk" class="text-info">
+                        <i class="far fa-envelope"></i>
+                        info@primetype.co.uk
+                    </a>
+                    <br>
+                </div>
+                <div class="col-xs-12 col-md">
+                    <strong>Legals</strong><br>
+                    <em>Prime Type Ltd</em> is a limited company registered in
+                    <em>England and Wales</em>.<br>
+                    <em>Registration number&nbsp;10597758</em>.<br>
+                    <em>VAT registration number&nbsp;295196950.</em>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md text-center">
+                    <div class="copyright">
+                        <strong>Copyrights</strong><br>
+                        <i class="far fa-copyright"></i>
+                        2017-2018 Prime Type Ltd
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous">
+    </script>
+
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</body>
+
+</html>

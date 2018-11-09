@@ -1,0 +1,74 @@
+{% extends "index.html" %}
+
+{% block description %}
+    {{ page.description }}
+{% endblock description %}
+
+{% block content %}
+<section class="section post" id="post">
+    <div class="jumbotron bg-success text-white jumbotron-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 text-center mh-100">
+                    <span class="h-resp-fa align-middle mh-100">
+                        {% if page.extra.fa %}
+                        <i class="fas {{ page.extra.fa }}"></i>
+                        {% else %}
+                        <i class="fas fa-newspaper"></i>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="col">
+                    <h1 class="h-title">{{ page.title }}</h1>
+                    <p class="h-lead">{{ page.description }}</p>
+                    <p>
+                        {% if page.date %}{{ page.date | date(format="%A %d %B %Y") }}{% endif %}
+                        {% if page.extra.updated %}(last updated: {{ page.extra.updated | date(format="%A %d %B %Y") }}){% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container page">
+        <div class="row">
+            <div class="col">
+                {{ page.content | safe }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <hr class="my-4">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                {% if page.earlier %}
+                <a class="btn btn-outline-success"
+                   href="{{ page.earlier.permalink }}"
+                   data-toggle="tooltip"
+                   data-placement="bottom"
+                   title="{{ page.earlier.title }}">
+                    <i class="fas fa-arrow-left"></i>
+                    {{ page.earlier.title | truncate(length=20) }}
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-6 text-right">
+                {% if page.later %}
+
+                <a class="btn btn-outline-success"
+                   href="{{ page.later.permalink }}"
+                   data-toggle="tooltip"
+                   data-placement="bottom"
+                   title="{{ page.later.title }}">
+                    {{ page.later.title | truncate(length=20) }}
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

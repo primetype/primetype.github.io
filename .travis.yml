@@ -5,48 +5,18 @@ branches:
   only:
   - sources
 
-# Caching so the next build will be fast too.
-cache:
-  directories:
-  - $HOME/.ghc
-  - $HOME/.cabal
-  - $HOME/.stack
-
-# The different configurations we want to test. We have BUILD=cabal which uses
-# cabal-install, and BUILD=stack which uses Stack.
 matrix:
   include:
-  - env: BUILD=stack
-    language: generic
-    addons: { apt: { packages: [ libgmp-dev ] } }
-    compiler: ghc-8.0.2
+  - language: generic
     os: linux
 
-install:
-  - export PATH=$HOME/.local/bin::$HOME/.cabal/bin:$PATH
-  - mkdir -p ~/.local/bin
-  - |
-    case "$BUILD" in
-      stack)
-        if [ `uname` = "Darwin" ]
-        then
-          travis_retry curl --insecure -L https://www.stackage.org/stack/osx-x86_64 | tar xz --strip-components=1 --include '*/stack' -C ~/.local/bin
-        else
-          travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
-        fi
-      ;;
-    esac
+before_script:
+  # Download and unzip the gutenberg executable
+  # Replace the version numbers in the URL by the version you want to use
+  - curl -s -L https://github.com/Keats/gutenberg/releases/download/v0.3.1/gutenberg-v0.3.1-x86_64-unknown-linux-gnu.tar.gz | sudo tar xvzf - -C /usr/local/bin
 
 script:
-- |
-  set -ex
-  case "$BUILD" in
-    stack)
-      stack --no-terminal build --install-ghc
-      ;;
-  esac
-  ./script.hs build
-  set +ex
+  - gutenberg build
 
 deploy:
   skip_cleanup: true
@@ -56,6 +26,6 @@ deploy:
   fqdn: www.primetype.co.uk
   email: nicolas@primetype.co.uk
   name: Nicolas Di Prima
-  local_dir: _site
+  local_dir: public
   on:
     branch: sources

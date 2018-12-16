@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/nicolasdp
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://primetype.co.uk
+  * I am nicolasdp (https://keybase.io/nicolasdp) on keybase.
+  * I have a public key ASBfWcx_UBEt5hGTEWhtiVM7R2Byz1RmFg2Kw37ekEy94wo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120d1f8fc8cc88449a93c4e872f657c830daaa7de9c5385a5ec0075ecaa71d499120a",
+      "host": "keybase.io",
+      "kid": "01205f59cc7f50112de6119311686d89533b476072cf5466160d8ac37ede904cbde30a",
+      "uid": "e074d7fd1448ef7db1a7294c7cf8fc19",
+      "username": "nicolasdp"
+    },
+    "merkle_root": {
+      "ctime": 1544951551,
+      "hash": "147268ce32c8be53c9ce75127d22b902274166ef711f2946ba8fe430086e386e3c24345739383d5809e9c842909f778f59b47cd706df50f62749190b175186c6",
+      "hash_meta": "7ca824b77333375d2479c9b293d9656d0dd50053f4ec7a412837465f36c6e1b4",
+      "seqno": 4152450
+    },
+    "service": {
+      "entropy": "zozdqSTsLNaOj6BjJ9cJD2L0",
+      "hostname": "primetype.co.uk",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "2.11.0"
+  },
+  "ctime": 1544951873,
+  "expire_in": 504576000,
+  "prev": "1344bdd67164d82c38f2cdfcba1bb174d30362ade3d2f8ed7b1db8c3a5407498",
+  "seqno": 27,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgX1nMf1ARLeYRkxFobYlTO0dgcs9UZhYNisN+3pBMveMKp3BheWxvYWTESpcCG8QgE0S91nFk2Cw48s38uhuxdNMDYq3j0vjtex24w6VAdJjEIGnLPpQxI456C5jsJQ8cimFbLVReVYupGgFsnNc2QvM3AgHCo3NpZ8RAXC/+lyzWWEcLmKCF4t6FfSgWBZY37MvmnNrpG7lDkZZSYONv7KtgP2z/Cw2NXNAZiSNN/z4VQG2h8zwRx1nKBahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIMhc90rfIutCevQy6RlqS+Ewm14EZDLy5loY3FEEaPANo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/nicolasdp
+
+==================================================================

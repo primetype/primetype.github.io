@@ -5,25 +5,25 @@
     <div class="container">
         <div class="row">
         <div class="col-xs-12 col-md-8 offset-md-2">
-            {% for post in section.pages %}
+            {% for page in section.pages %}
             <div class="card mb-3">
                 <!-- <img class="card-img-top" src=".../100px160/" alt="Card image cap"> -->
                 <a class="text-success" href="{{ page.permalink }}">
                 <div class="card-header">
                     <h2>
                         {% if post.extra.fa %}
-                        <i class="fas {{post.extra.fa}}"></i>
+                        <i class="fas {{page.extra.fa}}"></i>
                         {% else %}
                         <i class="fas fa-newspaper"></i>
                         {% endif %}
-                        {{ post.title }}
+                        {{ page.title }}
                     </h2>
-                    <p class="card-text"><small class="text-muted">{{ post.date | date(format="%A %d %B %Y") }}</small></p>
+                    <p class="card-text"><small class="text-muted">{{ page.date | date(format="%A %d %B %Y") }}</small></p>
 
                 </div>
                 </a>
                 <div class="card-body">
-                    <p class="card-text"> {{ post.summary | safe }} </p>
+                    <p class="card-text"> {{ page.summary | safe }} </p>
                     <a class="text-success" href="{{ page.permalink }}#continue-reading">
                         <i class="fab fa-readme"></i>
                         Continue Reading

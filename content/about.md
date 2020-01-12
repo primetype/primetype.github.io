@@ -43,7 +43,7 @@ We incorporated in 2017 and started contracting for different businesses
 to implement cryptographic protocols to integrate within their products.
 
 We have implemented our first project:
-[`sharesafe`](./blog/sharesafe.md)
+[`sharesafe`](@/blog/sharesafe.md)
 It is a very simple command line interface to encrypt messages
 using one of the most powerful cryptographic scheme:
 <abbr title="Publicly Verifiable Secret Sharing">PVSS</abbr>.

@@ -7,7 +7,7 @@ date = 2016-06-29
 fa = "fa-car-crash"
 +++
 
-In a [previous post](./blog/yet-another-error-handling.md) I
+In a [previous post](@/blog/yet-another-error-handling.md) I
 demonstrated how handy error handling in **Haskell** and in **Rust** is.
 
 It is possible to do the same in **C++**.

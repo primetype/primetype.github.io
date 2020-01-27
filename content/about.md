@@ -1,52 +1,57 @@
 +++
-title = "About Us "
+title = "How we work"
 +++
 
-<div class="row card-group text-center">
-  <div class="col-12 col-md-4">
-    <del><i class="fas fa-user-shield fa-5x text-danger"></i></del>
-    <h1 class="display-5">
-      Security
-    </h1>
-    <br />
-    <p>
-      <strong>Privacy</strong> and <strong>Security</strong> are our primes requisites.
-      We will work with you on defining the required levels.
-    </p>
-  </div>
-  <div class="col-12 col-md-4">
-    <i class="fas fa-cogs fa-5x text-danger"></i>
-    <h1 class="display-5">
-      Composability
-    </h1>
-    <br />
-    <p>
-      While pay twice for the same feature? Our solutions are optimized for easy integration and reusability.
-    </p>
-  </div>
-  <div class="col-12 col-md-4">
-    <i class="fas fa-chart-line fa-5x text-danger"></i>
-    <h1 class="display-5">
-      Reliability
-    </h1>
-    <br />
-    <p>
-      It is a tough world out there, we write our software to maintain stability even during heavy demand.
-    </p>
-  </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-timeline">
+            <a href="#" class="timeline">
+                <div class="timeline-icon"><i class="fa fa-lightbulb"></i></div>
+                <div class="timeline-content">
+                    <h3 class="title">Developing Ideas</h3>
+                    <p class="description">
+                      We are passionate about our customers' projects. We will work with you
+                      on your ideas, helping you develop them and explore their potential.
+                    </p>
+                </div>
+            </a>
+            <a href="#" class="timeline">
+                <div class="timeline-icon"><i class="fa fa-layer-group"></i></div>
+                <div class="timeline-content">
+                    <h3 class="title">Design and Architecture</h3>
+                    <p class="description">
+                      We are experienced in designing softwares, however often we know
+                      the customers have already put a lot of thinking into how the
+                      ideas should work. We think this is invaluable to the success
+                      of the project and we will work with you into putting your ideas
+                      into a high level design document that will be used as reference
+                      for the development team.
+                    </p>
+                </div>
+            </a>
+            <a href="#" class="timeline">
+                <div class="timeline-icon"><i class="fa fa-people-carry"></i></div>
+                <div class="timeline-content">
+                    <h3 class="title">Working Together</h3>
+                    <p class="description">
+                      There is a constant communication line between our customers and
+                      our teams. Transparency and accountability are one of our values.
+                      When working with us you won't be left in the dark.
+                    </p>
+                </div>
+            </a>
+            <a href="#" class="timeline">
+                <div class="timeline-icon"><i class="fa fa-redo-alt"></i></div>
+                <div class="timeline-content">
+                    <h3 class="title">Fail Fast</h3>
+                    <p class="description">
+                      Because we work on innovative ideas. It is important to be able to quickly
+                      detect a point of failure in order to learn, report and then plan with
+                      our customers on the direction to take.
+                    </p>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>
-<br />
-<hr class="my-0">
-<br />
 
-We incorporated in 2017 and started contracting for different businesses
-to implement cryptographic protocols to integrate within their products.
-
-We have implemented our first project:
-[`sharesafe`](@/blog/sharesafe.md)
-It is a very simple command line interface to encrypt messages
-using one of the most powerful cryptographic scheme:
-<abbr title="Publicly Verifiable Secret Sharing">PVSS</abbr>.
-
-We now contract from local to global companies such as [**IOHK** <i class="fas fa-external-link-alt"></i>](https://iohk.io), the
-company designing and implementing the **cardano blockchain**.

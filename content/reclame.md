@@ -28,7 +28,7 @@ class = "fa-paper-plane"
     </h1>
     <br />
     <p>
-      While pay twice for the same feature? Our solutions are optimized for easy integration and reusability.
+      Why pay twice for the same feature? Our solutions are optimized for easy integration and reusability.
     </p>
   </div>
   <div class="col-12 col-md-4">

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Prime Type Ltd, the company that will provide you with the cryptographic tools to enhance and secure your business.">
+    <meta name="author" content="Nicolas Di Prima">
+    <title>Prime Type</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+
+    <link href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;/style.css" rel="stylesheet">
+
+</head>
+
+
+
+
+<body role="document" id="home">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https:&#x2F;&#x2F;primetype.co.uk">
+                Prime Type
+            </a>
+
+            <div class="navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https:&#x2F;&#x2F;primetype.co.uk#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+<div class="p-5 mb-4 bg-danger text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 text-center mh-100">
+                <span class="h-resp-fa align-middle mh-100">
+                    
+                    <i class="fas fa-wallet"></i>
+                    
+                </span>
+            </div>
+            <div class="col">
+                <h1 class="h-title">The Cardano Wallet</h1>
+                <p class="h-lead">The output of wasm-pack on IOHK&#x27;s cardano wallet</p>
+                <p>
+                    Friday 01 March 2019
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-5 page">
+    <div class="row">
+        <div class="col">
+            <p>I am so proud to announce the <code>1.0.0</code> release of
+<a href="https://www.npmjs.com/package/cardano-wallet">cardano-wallet</a>. A fully
+object oriented <strong>JavaScript</strong> Library built on top of the
+<a href="https://github.com/input-output-hk/rust-cardano"><strong>Cardano SDK</strong></a>.</p>
+<span id="continue-reading"></span>
+<p>The Rust Team at IOHK has been working hard to finally provide a stable and
+meaningful APIs for developers to write their own wallet applications. Now
+there is a package that is object oriented, that has better error inputs and
+that have amazing performances even though it has to translate some values
+between JavaScript and Rust.</p>
+<h1 id="what-is-it-about">What is it about</h1>
+<p>It all started with the <a href="https://iohk.io/blog/iohk-release-icarus-to-the-cardano-community/">Icarus</a>
+project last year. At the time we wrote a first version of the crypto graphic
+library in rust and provided hand-written bindings from rust to JS. While it
+worked well to a certain point it was not a great API to utilise.</p>
+<p>Before you would have to do this:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-JS" data-lang="JS"><span style="color:#c0c5ce;">const CardanoCrypto = require(&#39;OldCardanoCrypto.js&#39;);
+
+const SEED = new Uint8Array([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,]);
+const root_xprv = CardanoCrypto.HdWallet.fromSeed(seed);
+const xpub = CardanoCrypto.HdWallet.toPublic(xprv);
+const known_address = CardanoCrypto.HdWallet.publicKeyToAddress(xpub);
+</span></code></pre>
+<p>While very <em>raw</em> it also comes without type script annotations.</p>
+<p>Now you can:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-js" data-lang="js"><span style="color:#b48ead;">const </span><span style="color:#bf616a;">MNEMONICS </span><span style="color:#c0c5ce;">= &quot;</span><span style="color:#a3be8c;">crowd captain hungry tray powder motor coast oppose month shed parent mystery torch resemble index</span><span style="color:#c0c5ce;">&quot;;
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">PASSWORD </span><span style="color:#c0c5ce;">= &quot;</span><span style="color:#a3be8c;">Cardano Rust for the winners!</span><span style="color:#c0c5ce;">&quot;;
+
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">settings </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">Wallet</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">BlockchainSettings</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">mainnet</span><span style="color:#c0c5ce;">();
+
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">entropy </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">Wallet</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Entropy</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">from_english_mnemonics</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">MNEMONICS</span><span style="color:#c0c5ce;">);
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">wallet </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">Wallet</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Bip44RootPrivateKey</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">recover</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">entropy</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">PASSWORD</span><span style="color:#c0c5ce;">);
+
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">account </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">wallet</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">bip44_account</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">Wallet</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">AccountIndex</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">new</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0 </span><span style="color:#c0c5ce;">| </span><span style="color:#d08770;">0x80000000</span><span style="color:#c0c5ce;">));
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">account_public </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">account</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">public</span><span style="color:#c0c5ce;">();
+
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">key_prv </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">account</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">address_key</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">false</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Wallet</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">AddressKeyIndex</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">new</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">));
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">key_pub </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">account_public</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">address_key</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">false</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">Wallet</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">AddressKeyIndex</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">new</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">));
+
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">address </span><span style="color:#c0c5ce;">= </span><span style="color:#bf616a;">key_pub</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">bootstrap_era_address</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">settings</span><span style="color:#c0c5ce;">);
+</span></code></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <hr class="my-4">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 text-start">
+            
+            <a class="btn btn-outline-danger" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog&#x2F;rust-js-binding&#x2F;" data-toggle="tooltip"
+                data-placement="bottom" title="Cardano Wallet everywhere">
+                <i class="fas fa-arrow-left"></i>
+                Cardano Wallet every…
+            </a>
+            
+        </div>
+        <div class="col-6 text-end">
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-dark text-center text-lg-start text-white">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!--Grid row-->
+            <div class="row mt-4">
+                <!--Grid column-->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Legals</h5>
+
+                    <p>
+                        <em>Prime Type Ltd</em> is a limited company registered in
+                        <em>England and Wales</em>.<br>
+                        <em>Registration number&nbsp;10597758</em>.<br>
+                        <em>VAT registration number&nbsp;295196950.</em>
+                    </p>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Write to us</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="mailto:info@primetype.co.uk" class="text-white">
+                                <i class="fas fa-at fa-fw fa-sm me-2"></i>
+                                info@primetype.co.uk
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/primetype" target="_blank" class="text-white">
+                                <i class="fab fa-github fa-fw fa-sm me-2"></i>
+                                Check us out on github
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            Copyright
+            <i class="far fa-copyright"></i>
+            2017-2021 Prime Type Ltd
+            <br>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

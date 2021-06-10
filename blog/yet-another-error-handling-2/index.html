@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Prime Type Ltd, the company that will provide you with the cryptographic tools to enhance and secure your business.">
+    <meta name="author" content="Nicolas Di Prima">
+    <title>Prime Type</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+
+    <link href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;/style.css" rel="stylesheet">
+
+</head>
+
+
+
+
+<body role="document" id="home">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https:&#x2F;&#x2F;primetype.co.uk">
+                Prime Type
+            </a>
+
+            <div class="navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https:&#x2F;&#x2F;primetype.co.uk#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+<div class="p-5 mb-4 bg-danger text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 text-center mh-100">
+                <span class="h-resp-fa align-middle mh-100">
+                    
+                    <i class="fas fa-car-crash"></i>
+                    
+                </span>
+            </div>
+            <div class="col">
+                <h1 class="h-title">C++: Yet Another Kind of error handling (Part 2)</h1>
+                <p class="h-lead">Self document your code and let users decide how to handle error</p>
+                <p>
+                    Wednesday 29 June 2016
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-5 page">
+    <div class="row">
+        <div class="col">
+            <p>In a <a href="https://primetype.co.uk/blog/yet-another-error-handling/">previous post</a> I
+demonstrated how handy error handling in <strong>Haskell</strong> and in <strong>Rust</strong> is.</p>
+<p>It is possible to do the same in <strong>C++</strong>.</p>
+<p>Too often I come along the problem of error handling in <strong>C++</strong>. Some believe
+we <em>must</em> use <code>exceptions</code>, others prefer the old <strong>C</strong> style error code.</p>
+<p>I believe both are good options and have valid concerns about the other. I
+believe we <strong>should</strong> do both.</p>
+<span id="continue-reading"></span><h1 id="concrete-examples">Concrete examples</h1>
+<h2 id="c-s-free-function">C's free function</h2>
+<p>If you were to open a file, in <strong>C</strong> you would use the following function:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-C" data-lang="C"><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">open</span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">char const</span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">path</span><span style="color:#c0c5ce;">, </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">oflag</span><span style="color:#c0c5ce;">, ...);
+</span></code></pre>
+<p><code>open</code> returns either <code>-1</code> <strong>or</strong> a valid <em>file descriptor</em>. If you have an
+error and you want to find out what happened you will need to check <code>errno</code>
+then try to guess if <code>EACCES</code> is the one you are concerned about.</p>
+<p>It is not easy to use but it has been working for the last couple of decades.</p>
+<h2 id="c-s-standard-library">C++'s Standard library</h2>
+<p><strong>C++</strong> comes with some wrapper around the <strong>C</strong> function <code>open</code>. There is a
+<em>class</em> <code>fstream</code> which provides the method
+<a href="http://www.cplusplus.com/reference/fstream/fstream/open/">open</a>.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-C++" data-lang="C++"><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">open </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">const char</span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">filename</span><span style="color:#c0c5ce;">,
+           ios_base::openmode </span><span style="color:#bf616a;">mode </span><span style="color:#c0c5ce;">= ios_base::in | ios_base::out);
+</span></code></pre>
+<p>If the function has failed, you will need to look at the
+<a href="http://www.cplusplus.com/reference/ios/ios/good/">ios::good</a> to find out if the
+function succeeded or otherwise the opened <code>fstream</code> would throw an exception on
+the next operation, <em>fair enough</em>. The best practice is clearly to check for
+<code>ios::good</code> function.</p>
+<h1 id="can-t-we-do-better">Can't we do better ?</h1>
+<p>I think we can do much better. Ideally, we would like the signature of the
+function to be self explanatory, to describe precisely what users of this
+function should expect.</p>
+<h2 id="boost">Boost</h2>
+<p><a href="//boost.org">Boost</a> provides a data structure: <code>boost::variant</code>. It is an
+enhanced version of the <code>C</code>'s <code>unions</code>, with strong typing.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-c++" data-lang="c++"><span style="color:#65737e;">// you can create an object which is either an `int` or a `std::string`
+</span><span style="color:#c0c5ce;">boost::variant&lt;</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;">, std::string&gt; obj = </span><span style="color:#d08770;">10</span><span style="color:#c0c5ce;">;
+
+</span><span style="color:#65737e;">// you can get it&#39;s content knowing its type
+</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> v = boost::get&lt;</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;">&gt;(obj); </span><span style="color:#65737e;">// OK
+
+// you can mutate the content
+</span><span style="color:#c0c5ce;">obj = &quot;</span><span style="color:#a3be8c;">Prime Type Ltd</span><span style="color:#c0c5ce;">&quot;; </span><span style="color:#65737e;">// Ok
+
+// and access its value with its type
+</span><span style="color:#c0c5ce;">std::string p = boost::get&lt;std::string&gt;(obj); </span><span style="color:#65737e;">// OK
+
+// but you cannot get it wrong:
+</span><span style="color:#c0c5ce;">boost::get&lt;</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;">&gt;(obj); </span><span style="color:#65737e;">// obj has been set to a std::string...
+</span></code></pre>
+<p>This is really similar to what I described in my
+<a href="https://primetype.co.uk/blog/yet-another-error-handling-2/2016-06-11-yet-another-error-handling.html">previous post</a>.</p>
+<h2 id="the-idea">The idea</h2>
+<p>We will wrap <code>boost::variant</code> in a structure and provide <strong>Rust</strong>-like
+method to map the content of the value, chain with other function etc...</p>
+<pre style="background-color:#2b303b;">
+<code class="language-c++" data-lang="c++"><span style="color:#b48ead;">template</span><span style="color:#c0c5ce;">&lt;</span><span style="color:#b48ead;">class</span><span style="color:#c0c5ce;"> result_type, </span><span style="color:#b48ead;">class</span><span style="color:#c0c5ce;"> error_type&gt;
+</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">Result {
+  boost::variant&lt;result_type, error_type&gt; variant_;
+};
+</span></code></pre>
+<p>And then we could do the following:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-C++" data-lang="C++"><span style="color:#c0c5ce;">Result&lt;std::fstream, std::runtime_error&gt; </span><span style="color:#8fa1b3;">open</span><span style="color:#c0c5ce;">( </span><span style="color:#b48ead;">char const</span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">filename
+                                             </span><span style="color:#c0c5ce;">, ios_base::openmode </span><span style="color:#bf616a;">mode </span><span style="color:#c0c5ce;">= ios_base::in
+                                                                       | ios_base::out
+                                             );
+</span></code></pre>
+<blockquote>
+<p>This is it !</p>
+</blockquote>
+<p>We now have a function, which explicitly tells us what the function is doing.
+It is a function which <code>open</code> the file, takes a <code>filename</code> and <code>mode</code>, and
+returns either the successfully opened <code>fstream</code> or a <code>runtime_error</code>.</p>
+<h2 id="the-result">The <code>Result</code></h2>
+<p>You can find the complete source code with the test
+<a href="//github.com/nicolasdp/result">on github</a>.</p>
+<h2 id="example-of-usage">Example of usage</h2>
+<p>Now we can do pretty interesting thing with this:</p>
+<p>We can throw an exception if we don't want to handle the error right now:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-C++" data-lang="C++"><span style="color:#65737e;">// either open succeed or throw the `std::runtime_error`
+</span><span style="color:#b48ead;">auto</span><span style="color:#c0c5ce;"> fs = </span><span style="color:#bf616a;">open</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/invalid/file.txt</span><span style="color:#c0c5ce;">&quot;).</span><span style="color:#bf616a;">unwrap</span><span style="color:#c0c5ce;">();
+</span></code></pre>
+<p>Or we can recover:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-C++" data-lang="C++"><span style="color:#65737e;">// if we fail to open the file we would execute the given lambda.
+</span><span style="color:#b48ead;">auto</span><span style="color:#c0c5ce;"> fs = </span><span style="color:#bf616a;">open</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/invalid/file.txt</span><span style="color:#c0c5ce;">&quot;)
+            .</span><span style="color:#bf616a;">or_else</span><span style="color:#c0c5ce;">([](std::runtime_error&amp;&amp; )
+              {
+                </span><span style="color:#b48ead;">return </span><span style="color:#c0c5ce;">std::</span><span style="color:#bf616a;">move</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">open</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/valid/file.txt</span><span style="color:#c0c5ce;">&quot;));
+              }
+            );
+</span></code></pre>
+<p>Or even more complex yet interesting chaining:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-C++" data-lang="C++"><span style="color:#c0c5ce;">std::string line = </span><span style="color:#bf616a;">open</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">example.txt</span><span style="color:#c0c5ce;">&quot;)
+  .</span><span style="color:#bf616a;">and_then</span><span style="color:#c0c5ce;">([](std::fstream&amp;&amp; fs) { </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">readline</span><span style="color:#c0c5ce;">(fs); })
+  .</span><span style="color:#bf616a;">and_then</span><span style="color:#c0c5ce;">([](std::string&amp;&amp; s) { </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">parseline</span><span style="color:#c0c5ce;">(s); })
+  .</span><span style="color:#bf616a;">or_else</span><span style="color:#c0c5ce;">([](std::runtime_error&amp;&amp;) {</span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">open</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">test.txt</span><span style="color:#c0c5ce;">&quot;)})
+  .</span><span style="color:#bf616a;">and_then</span><span style="color:#c0c5ce;">([](std::fstream&amp;&amp; fs) { </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">readline</span><span style="color:#c0c5ce;">(fs); })
+  .</span><span style="color:#bf616a;">and_then</span><span style="color:#c0c5ce;">([](std::string&amp;&amp; s) { </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">parseline</span><span style="color:#c0c5ce;">(s); })
+  .</span><span style="color:#bf616a;">expect</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">cannot parse line of both example.txt and test.txt</span><span style="color:#c0c5ce;">&quot;);
+</span></code></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <hr class="my-4">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 text-start">
+            
+            <a class="btn btn-outline-danger" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog&#x2F;yet-another-error-handling&#x2F;" data-toggle="tooltip"
+                data-placement="bottom" title="C++: Yet Another Kind of error handling (Part 1)">
+                <i class="fas fa-arrow-left"></i>
+                C++: Yet Another Kin…
+            </a>
+            
+        </div>
+        <div class="col-6 text-end">
+            
+
+            <a class="btn btn-outline-danger" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog&#x2F;haskell-nat&#x2F;" data-toggle="tooltip"
+                data-placement="bottom" title="Haskell&#x27;s Type Literal">
+                Haskell&#x27;s Type Liter…
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-dark text-center text-lg-start text-white">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!--Grid row-->
+            <div class="row mt-4">
+                <!--Grid column-->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Legals</h5>
+
+                    <p>
+                        <em>Prime Type Ltd</em> is a limited company registered in
+                        <em>England and Wales</em>.<br>
+                        <em>Registration number&nbsp;10597758</em>.<br>
+                        <em>VAT registration number&nbsp;295196950.</em>
+                    </p>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Write to us</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="mailto:info@primetype.co.uk" class="text-white">
+                                <i class="fas fa-at fa-fw fa-sm me-2"></i>
+                                info@primetype.co.uk
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/primetype" target="_blank" class="text-white">
+                                <i class="fab fa-github fa-fw fa-sm me-2"></i>
+                                Check us out on github
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            Copyright
+            <i class="far fa-copyright"></i>
+            2017-2021 Prime Type Ltd
+            <br>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

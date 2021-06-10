@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Prime Type Ltd, the company that will provide you with the cryptographic tools to enhance and secure your business.">
+    <meta name="author" content="Nicolas Di Prima">
+    <title>Prime Type</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+
+    <link href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;/style.css" rel="stylesheet">
+
+</head>
+
+
+
+
+<body role="document" id="home">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https:&#x2F;&#x2F;primetype.co.uk">
+                Prime Type
+            </a>
+
+            <div class="navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https:&#x2F;&#x2F;primetype.co.uk#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+<div class="p-5 mb-4 bg-danger text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 text-center mh-100">
+                <span class="h-resp-fa align-middle mh-100">
+                    
+                    <i class="fas fa-lock"></i>
+                    
+                </span>
+            </div>
+            <div class="col">
+                <h1 class="h-title">ShareSafe -- ready to use secret sharing</h1>
+                <p class="h-lead">Command line interface for Publicly Verifiable Secret Sharing</p>
+                <p>
+                    Sunday 03 December 2017
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-5 page">
+    <div class="row">
+        <div class="col">
+            <p><a href="https://github.com/primetype/sharesafe-lib"><code>ShareSafe</code></a> is available and
+ready to use. It allows users to leverage Publicly Verifiable Secret Sharing
+(PVSS).</p>
+<span id="continue-reading"></span><h2 id="what-it-is">What it is</h2>
+<p>It is a library (first at all) that provides simple interfaces to make use of
+PVSS to encrypt/decrypt data.</p>
+<p>A command line interface (CLI) is provided with the package and it is what we
+will be talking about here.</p>
+<h2 id="with-what">With what</h2>
+<p>The library is built on top of the <a href="https://github.com/input-output-hk/pvss-haskell"><code>pvss</code></a>
+library built and maintained by <a href="https://iohk.io"><strong>IOHK</strong></a> (the company behind
+cardano-sl and the cryptocurrency <strong>ADA</strong>) and on top of
+<a href="https://github.com/haskell-crypto/cryptonite"><code>cryptonite</code></a>.</p>
+<h1 id="sharesafe-simple-secret-sharing">sharesafe: simple secret sharing</h1>
+<h2 id="what-is-publicly-verifiable-secret-sharing">What is Publicly Verifiable Secret Sharing</h2>
+<p>Quickly, PVSS is a protocol to allow users to create (and verify) a secret made
+by <code>n</code> participants. These <code>n</code> participants only shares their <code>n</code> public keys
+to create a secret. They have decided that <code>m</code> participants (0 &lt; <code>m</code> &lt;= <code>n</code>)
+are needed to retrieve the Secret.</p>
+<p>Very simple : <code>n</code> participants only share their public keys. All or a subset are
+needed to recover the secret.</p>
+<h2 id="what-s-with-sharesafe">What's with <code>sharesafe</code> ?</h2>
+<p>The generated/retrieved secret can be used for multiple purpose. One of them,
+the one used in <code>sharesafe</code>, is for symmetric encryption.</p>
+<p>i.e. if one want to send private data, it only needs the public key of the
+recipient. So now you can say that there is already asymmetric encryption for
+that and you would be right. PVSS here is interesting because you can add
+yourself in the scheme. The sender can set itself as a participant of share
+and can retrieve the <strong>same</strong> secret.</p>
+<p>This is interesting because it provides us with a way to verify who participated
+to a given secret/share.</p>
+<p>You can checkout the use case described in the <a href="https://github.com/primetype/sharesafe-lib#sharing-deployment-files-on-repositories">README.md of <code>sharesafe</code></a></p>
+<h2 id="how-to-use-the-cli-to-generate-private-key">How to use the CLI to generate private key</h2>
+<h3 id="create-the-keypair-and-share-the-public-key">create the keypair and share the public key</h3>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#65737e;"># generate to the standard output
+</span><span style="color:#bf616a;">sharesafe</span><span style="color:#c0c5ce;"> key new
+</span><span style="color:#65737e;"># generate in a file
+</span><span style="color:#c0c5ce;">sharesafe key new</span><span style="color:#bf616a;"> -o </span><span style="color:#c0c5ce;">&lt;generated-key-pair&gt;
+</span></code></pre>
+<p>by default we are not setting a password for the secret. If you want to set a
+password, use <code>--password</code>. By default the password is the empty string.</p>
+<p>To export the public key:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#65737e;"># by default `sharesafe` will read the keypair from the standard input
+# and will write the exported public key to the standard output.
+</span><span style="color:#bf616a;">sharesafe</span><span style="color:#c0c5ce;"> key export-public</span><span style="color:#bf616a;"> -i </span><span style="color:#c0c5ce;">&lt;generated-key-pair&gt; -o &lt;exported-public-key&gt;
+</span></code></pre><h3 id="create-an-encryption-key">Create an encryption key</h3>
+<p>This command will create the shares for every participants, the commitments and
+the encryption key.</p>
+<ul>
+<li>the <code>shares</code> will be needed to recover the secret later on. Only the secret
+key associated to the share can unlock the share;</li>
+<li>you will need the same amount as the <code>threshold</code>  of unlocked shares to
+recover the secret;</li>
+<li>the <code>commitments</code> can be used to check the shares;</li>
+<li><code>encryption-key</code> is the key generated from the secret;</li>
+</ul>
+<p>This command will create a locked <code>share</code> for every given <code>&lt;public-key&gt;</code>: the
+name will be the input file name with the suffix replaced to <code>share</code>.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sharesafe</span><span style="color:#c0c5ce;"> pvss new</span><span style="color:#bf616a;"> --participant</span><span style="color:#c0c5ce;"> public-key1 \
+</span><span style="color:#bf616a;">                   --participant</span><span style="color:#c0c5ce;"> public-key2 \
+</span><span style="color:#bf616a;">                   --threshold</span><span style="color:#c0c5ce;">=1 \
+</span><span style="color:#bf616a;">                   --commitments</span><span style="color:#c0c5ce;"> commitments \
+</span><span style="color:#bf616a;">                   -o</span><span style="color:#c0c5ce;"> encryption-key
+</span></code></pre>
+<p>Once you have generated the shares, you can simply share them Publicly (or not).
+Only the private key associated to the public key used to generate the share
+can unlock the share.</p>
+<h3 id="verify-a-share-against-the-commitments">Verify a share against the commitments</h3>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sharesafe</span><span style="color:#c0c5ce;"> pvss verify</span><span style="color:#bf616a;"> -s </span><span style="color:#c0c5ce;">&lt;locked-share&gt; -c commitments
+</span></code></pre><h3 id="unlock-the-share">Unlock the share</h3>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sharesafe</span><span style="color:#c0c5ce;"> pvss open-share</span><span style="color:#bf616a;"> -s </span><span style="color:#c0c5ce;">&lt;share-file&gt; -k &lt;private-key&gt; -o &lt;opened-share&gt;
+</span></code></pre><h3 id="recover-the-encryption-key">Recover the encryption key</h3>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sharesafe</span><span style="color:#c0c5ce;"> pvss recover</span><span style="color:#bf616a;"> -s </span><span style="color:#c0c5ce;">$(</span><span style="color:#bf616a;">cat </span><span style="color:#c0c5ce;">&lt;opened-share&gt;) \
+</span><span style="color:#bf616a;">                       -o</span><span style="color:#c0c5ce;"> encryption-key.recovered
+</span></code></pre><h2 id="how-to-use-the-cli-for-encryption">How to use the CLI for encryption</h2>
+<p>The <code>encryption-key</code> is generated using Diffie-Hellman derivation from the
+PVSS secret. The encryption algorithm provided is <code>ChaChaPoly1305</code>.
+It provides a default authentication of the ciphered content.</p>
+<h3 id="encrypt">Encrypt</h3>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">cat</span><span style="color:#c0c5ce;"> input-file | \
+  </span><span style="color:#bf616a;">sharesafe</span><span style="color:#c0c5ce;"> cipher encrypt</span><span style="color:#bf616a;"> -k </span><span style="color:#c0c5ce;">$(</span><span style="color:#bf616a;">cat</span><span style="color:#c0c5ce;"> encryption-key) &gt; input-file.encrypted
+</span></code></pre><h3 id="decrypt">Decrypt</h3>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">cat</span><span style="color:#c0c5ce;"> input-file.encrypted | \
+  </span><span style="color:#bf616a;">sharesafe</span><span style="color:#c0c5ce;"> cipher decrypt</span><span style="color:#bf616a;"> -k </span><span style="color:#c0c5ce;">$(</span><span style="color:#bf616a;">cat</span><span style="color:#c0c5ce;"> encryption-key) &gt; input-file
+</span></code></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <hr class="my-4">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 text-start">
+            
+            <a class="btn btn-outline-danger" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog&#x2F;haskell-foundation-check&#x2F;" data-toggle="tooltip"
+                data-placement="bottom" title="Foundation&#x27;s testing framework">
+                <i class="fas fa-arrow-left"></i>
+                Foundation&#x27;s testing…
+            </a>
+            
+        </div>
+        <div class="col-6 text-end">
+            
+
+            <a class="btn btn-outline-danger" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog&#x2F;rust-js-binding&#x2F;" data-toggle="tooltip"
+                data-placement="bottom" title="Cardano Wallet everywhere">
+                Cardano Wallet every…
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-dark text-center text-lg-start text-white">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!--Grid row-->
+            <div class="row mt-4">
+                <!--Grid column-->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Legals</h5>
+
+                    <p>
+                        <em>Prime Type Ltd</em> is a limited company registered in
+                        <em>England and Wales</em>.<br>
+                        <em>Registration number&nbsp;10597758</em>.<br>
+                        <em>VAT registration number&nbsp;295196950.</em>
+                    </p>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Write to us</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="mailto:info@primetype.co.uk" class="text-white">
+                                <i class="fas fa-at fa-fw fa-sm me-2"></i>
+                                info@primetype.co.uk
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/primetype" target="_blank" class="text-white">
+                                <i class="fab fa-github fa-fw fa-sm me-2"></i>
+                                Check us out on github
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            Copyright
+            <i class="far fa-copyright"></i>
+            2017-2021 Prime Type Ltd
+            <br>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

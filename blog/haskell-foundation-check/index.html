@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Prime Type Ltd, the company that will provide you with the cryptographic tools to enhance and secure your business.">
+    <meta name="author" content="Nicolas Di Prima">
+    <title>Prime Type</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+
+    <link href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;/style.css" rel="stylesheet">
+
+</head>
+
+
+
+
+<body role="document" id="home">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https:&#x2F;&#x2F;primetype.co.uk">
+                Prime Type
+            </a>
+
+            <div class="navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https:&#x2F;&#x2F;primetype.co.uk#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+<div class="p-5 mb-4 bg-danger text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 text-center mh-100">
+                <span class="h-resp-fa align-middle mh-100">
+                    
+                    <i class="fas fa-check-square"></i>
+                    
+                </span>
+            </div>
+            <div class="col">
+                <h1 class="h-title">Foundation&#x27;s testing framework</h1>
+                <p class="h-lead">When testing becomes part of your library</p>
+                <p>
+                    Thursday 30 November 2017
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-5 page">
+    <div class="row">
+        <div class="col">
+            <p>Being a haskell library provider means you have a contract toward your user:
+<em>you provide them with a minimum degree of confidence your code work</em>.</p>
+<p>This is quite important. And thankfully Haskell maintainers are quite good with
+that. The language provides the abstraction to avoid the common mistakes;
+the semantic is checked at compile time. But what about the implementation
+itself? Or the properties? Is it correct? Is your functor actually a functor?
+Will it behave like everyone is expecting? Is your JSON parser parsing the data
+as expected?</p>
+<span id="continue-reading"></span>
+<p>There is an Haskell library for that: <strong>Quickcheck</strong>. We all know about it, most
+of us are using it. It has been doing the job okay so far.</p>
+<p>Now, other languages like <strong>Rust</strong>, have decided to include testing as a core
+feature. I believe it is a good idea to include the testing
+framework as early as possible in the core library; or within the language
+itself.</p>
+<h1 id="foundation-s-check">Foundation's Check</h1>
+<p>Some would rather like a more fragmented libraries. At the
+<a href="https://github.com/haskell-foundation">Haskell Foundation</a> we believe it is
+better to unify, to bring together core libraries, to facilitate the
+standardisation of haskell libraries and have inter operational types.
+The <a href="https://www.stackage.org/package/foundation">foundation</a> unifies modern
+Haskell concepts and real word programming. And because
+<a href="https://www.stackage.org/package/foundation">foundation</a> is one of the core
+library if not <em>the</em> core library. This is why it comes with a complete
+testing framework.</p>
+<h2 id="foundation-s-arbitrary">Foundation's Arbitrary</h2>
+<p>Foundation's types come with instances of
+<a href="https://www.stackage.org/haddock/lts-9.14/foundation-0.0.17/Foundation-Check.html#t:Arbitrary"><code>Arbitrary</code></a>.</p>
+<p>Just like you would find in Quickcheck (Foundation does not aim to re-invent
+the wheel):</p>
+<pre style="background-color:#2b303b;">
+<code class="language-Haskell" data-lang="Haskell"><span style="color:#b48ead;">class </span><span style="color:#a3be8c;">Arbitrary </span><span style="color:#bf616a;">a </span><span style="color:#b48ead;">where
+    </span><span style="color:#8fa1b3;">arbitrary </span><span style="color:#b48ead;">:: Gen </span><span style="color:#bf616a;">a
+</span></code></pre>
+<p>Having <code>Arbitrary</code> available at the foundation of the ecosystem is really
+useful and it prevents from seeing the most infamous compilation warning to see:
+<strong>Ophan Instance</strong>.
+If you are using Quickcheck (and didn't want to see the all its dependencies
+added to your package) you have certainly seen this compiler message.</p>
+<p>With Foundation's Check you can add <code>Arbitrary</code> to your types. Allowing you to
+use it in your tests <strong>but</strong> also allowing <em>the users of your library to re-use
+the instance of <code>Arbitrary</code> in their own tests</em>.</p>
+<h2 id="foundation-s-test-framework-dsl">Foundation's test framework DSL</h2>
+<p>Foundation is not re-inventing the wheel here. It is mostly what you
+would have with Quickcheck, except that in Foundation you use the <code>Test</code> type
+constructor instead of specific functions. In Foundation, it is called
+<a href="https://www.stackage.org/haddock/lts-9.14/foundation-0.0.17/Foundation-Check.html#t:Test"><code>Test</code></a></p>
+<pre style="background-color:#2b303b;">
+<code class="language-haskell" data-lang="haskell"><span style="color:#b48ead;">data </span><span style="color:#d08770;">Test </span><span style="color:#b48ead;">where
+    </span><span style="color:#d08770;">Group     </span><span style="color:#c0c5ce;">:: </span><span style="color:#d08770;">String </span><span style="color:#c0c5ce;">-&gt; [</span><span style="color:#d08770;">Test</span><span style="color:#c0c5ce;">] -&gt; </span><span style="color:#d08770;">Test
+    Property  </span><span style="color:#c0c5ce;">:: </span><span style="color:#d08770;">IsProperty</span><span style="color:#c0c5ce;"> prop =&gt; </span><span style="color:#d08770;">String </span><span style="color:#c0c5ce;">-&gt; prop -&gt; </span><span style="color:#d08770;">Test
+    CheckPlan </span><span style="color:#c0c5ce;">:: </span><span style="color:#d08770;">String </span><span style="color:#c0c5ce;">-&gt; </span><span style="color:#d08770;">Check () </span><span style="color:#c0c5ce;">-&gt; </span><span style="color:#d08770;">Test
+</span></code></pre>
+<p>so we have 3 constructors:</p>
+<ul>
+<li><code>Group</code> will allow you to build some sort of hierarchy within your tests;</li>
+<li><code>Property</code> test any kind of property (see below);</li>
+<li><code>CheckPlan</code> check like <code>Property</code> will allow you to validate properties but
+unlike <code>Property</code> it allows you to acquire resources first.</li>
+</ul>
+<h3 id="group"><code>Group</code></h3>
+<p>Well this is easy:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-haskell" data-lang="haskell"><span style="color:#8fa1b3;">main </span><span style="color:#b48ead;">:: IO </span><span style="color:#c0c5ce;">()
+main = defaultMain $ </span><span style="color:#d08770;">Test </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">Properties</span><span style="color:#c0c5ce;">&quot;
+  [ </span><span style="color:#d08770;">Test </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">Functor</span><span style="color:#c0c5ce;">&quot; </span><span style="color:#d08770;">[]
+  </span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">Test </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">Applicative</span><span style="color:#c0c5ce;">&quot; </span><span style="color:#d08770;">[]
+  </span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">Test </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">Monad</span><span style="color:#c0c5ce;">&quot; </span><span style="color:#d08770;">[]
+</span><span style="color:#c0c5ce;">  ]
+</span></code></pre><h3 id="property"><code>Property</code></h3>
+<p>This constructor regroup the 2 different kind of test you will want to do
+most of the cases:</p>
+<ul>
+<li>a unit test: test that <code>convertToBase Base64 &quot;&quot; === &quot;&quot;</code></li>
+<li>a property test: test that <code>convertFromBase Base64 . convertToBase Base64 === id</code></li>
+</ul>
+<p>And to do that, no need for different constructor, the
+<a href="https://www.stackage.org/haddock/lts-9.14/foundation-0.0.17/Foundation-Check.html#t:IsProperty"><code>IsProperty</code></a>
+class will help you.</p>
+<h4 id="unit-test">Unit Test</h4>
+<p>To do a test once, and only once without generating data (unit test):</p>
+<pre style="background-color:#2b303b;">
+<code class="language-haskell" data-lang="haskell"><span style="color:#8fa1b3;">main </span><span style="color:#b48ead;">:: IO </span><span style="color:#c0c5ce;">()
+main = defaultMain $
+  </span><span style="color:#d08770;">Property </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">base64 of nothing is nothing</span><span style="color:#c0c5ce;">&quot;
+           (convertToBase </span><span style="color:#d08770;">Base64 </span><span style="color:#c0c5ce;">&quot;&quot; == &quot;&quot;)
+</span></code></pre>
+<p>The type check understood this is a <code>Bool</code> type. The test has no parameter,
+it only need to run once.</p>
+<h4 id="property-tests">Property Tests</h4>
+<p>When you want to test a property is true for any arbitrary value of a given type
+you will want to write a <strong>Property Test</strong>:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-haskell" data-lang="haskell"><span style="color:#8fa1b3;">main </span><span style="color:#b48ead;">:: IO </span><span style="color:#c0c5ce;">()
+main = defaultMain $
+  </span><span style="color:#d08770;">Property </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">unbase64 . base64 == id</span><span style="color:#c0c5ce;">&quot; $ \d -&gt;
+            </span><span style="color:#d08770;">Right</span><span style="color:#c0c5ce;"> d === convertFromBase </span><span style="color:#d08770;">Base64</span><span style="color:#c0c5ce;"> (convertToBase </span><span style="color:#d08770;">Base64</span><span style="color:#c0c5ce;"> d)
+
+</span></code></pre>
+<p>The type checker see that you need a parameter, checks it is an instance of
+<code>Arbitrary</code> and generate it for you.</p>
+<p>Foundation provides handy function and operator. Here <code>===</code> will provide you
+with a nice little error display in case of something is different.</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">Prime
+  Common
+    ✗ Time failed after 1 test
+       ✗ parseJSON . fromJSON === id failed after 1 test
+         use param: --seed 14494984503458014416
+parameter 1 : 1999-09-03T06:46:42+00:00
+parameter 2 : 1997-02-12T23:17:46+00:00
+Property `a == b&#39; failed where:
+    a = Right 1999-09-03T06:46:42+00:00 :: Either [Char] Time
+                 ^  ^ ^^ ^^ ^^  ^
+    b = Right 1997-02-12T23:17:46+00:00 :: Either [Char] Time
+                 ^  ^ ^^ ^^ ^^  ^
+</span></code></pre>
+<p>In this case the display is really neat. It won't be perfect all the time but it
+can provide a useful hint in case of error. Foundation's Check does not only
+fail the test, it provides you with details that can help you same time here.</p>
+<p>Below is the code that generated the error above:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-Haskell" data-lang="Haskell"><span style="color:#8fa1b3;">main </span><span style="color:#b48ead;">:: IO </span><span style="color:#c0c5ce;">()
+main = defaultMain $
+  </span><span style="color:#d08770;">Property </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">fromJSON . toJSON == id</span><span style="color:#c0c5ce;">&quot; $ \a (b :: </span><span style="color:#d08770;">Time</span><span style="color:#c0c5ce;">) -&gt;
+      </span><span style="color:#d08770;">Right</span><span style="color:#c0c5ce;"> a === parseJSON (toJSON b)
+</span></code></pre><h1 id="that-s-it">That's it</h1>
+<p>really no magic here. You can check out
+<a href="https://github.com/primetype/sharesafe-lib"><em>sharesafe-lib</em>'s tests</a> for
+examples or even
+<a href="https://github.com/haskell-foundation/foundation">Foundation's tests</a> for more
+examples.</p>
+<p>So now, this is not a finished business. Foundation's community is still
+building up. But the progress so far are astonishing and it is a pleasure
+to use advanced haskell in real world project.</p>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <hr class="my-4">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 text-start">
+            
+            <a class="btn btn-outline-danger" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog&#x2F;haskell-nat&#x2F;" data-toggle="tooltip"
+                data-placement="bottom" title="Haskell&#x27;s Type Literal">
+                <i class="fas fa-arrow-left"></i>
+                Haskell&#x27;s Type Liter…
+            </a>
+            
+        </div>
+        <div class="col-6 text-end">
+            
+
+            <a class="btn btn-outline-danger" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog&#x2F;sharesafe&#x2F;" data-toggle="tooltip"
+                data-placement="bottom" title="ShareSafe -- ready to use secret sharing">
+                ShareSafe -- ready t…
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-dark text-center text-lg-start text-white">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!--Grid row-->
+            <div class="row mt-4">
+                <!--Grid column-->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Legals</h5>
+
+                    <p>
+                        <em>Prime Type Ltd</em> is a limited company registered in
+                        <em>England and Wales</em>.<br>
+                        <em>Registration number&nbsp;10597758</em>.<br>
+                        <em>VAT registration number&nbsp;295196950.</em>
+                    </p>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Write to us</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="mailto:info@primetype.co.uk" class="text-white">
+                                <i class="fas fa-at fa-fw fa-sm me-2"></i>
+                                info@primetype.co.uk
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/primetype" target="_blank" class="text-white">
+                                <i class="fab fa-github fa-fw fa-sm me-2"></i>
+                                Check us out on github
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            Copyright
+            <i class="far fa-copyright"></i>
+            2017-2021 Prime Type Ltd
+            <br>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

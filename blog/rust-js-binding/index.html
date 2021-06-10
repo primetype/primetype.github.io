@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Prime Type Ltd, the company that will provide you with the cryptographic tools to enhance and secure your business.">
+    <meta name="author" content="Nicolas Di Prima">
+    <title>Prime Type</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+
+    <link href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;/style.css" rel="stylesheet">
+
+</head>
+
+
+
+
+<body role="document" id="home">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https:&#x2F;&#x2F;primetype.co.uk">
+                Prime Type
+            </a>
+
+            <div class="navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https:&#x2F;&#x2F;primetype.co.uk#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+<div class="p-5 mb-4 bg-danger text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 text-center mh-100">
+                <span class="h-resp-fa align-middle mh-100">
+                    
+                    <i class="fas fa-universal-access"></i>
+                    
+                </span>
+            </div>
+            <div class="col">
+                <h1 class="h-title">Cardano Wallet everywhere</h1>
+                <p class="h-lead">The output of wasm-pack on IOHK&#x27;s cardano wallet</p>
+                <p>
+                    Monday 25 February 2019
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-5 page">
+    <div class="row">
+        <div class="col">
+            <p>It has been a while since my last blog post here. I have been working on a new
+project for a blockchain company <a href="https://iohk.io">IOHK</a>. My team has been
+working on the project to broader the customer targets by allowing the
+development of 3rd party software to work on many different platforms.</p>
+<span id="continue-reading"></span>
+<p>How would you do that? First you will need to make the list of what you need
+and then you see what can fit these requirements.</p>
+<h1 id="why-we-chose-rust">Why we chose Rust</h1>
+<p>The list of requirements was simple:</p>
+<ol>
+<li>We need to be able to control the memory footprint of the applications;</li>
+<li>it needs to work on small embedded device;</li>
+<li>it needs to work in the browser on a cheap computer;</li>
+<li>it needs to leverage the platforms features to provide the best performances;</li>
+<li>developers and integrators need not to have a hard time utilising it.</li>
+</ol>
+<p>Initially the cardano protocol is written in haskell. It is a cute language
+with really interesting language property. Some may argue that
+it is possible to make it fit all the requirements above, but there is
+still the requirement number <strong>5.</strong> : it needs to be easy to integrate in
+the developer environment.</p>
+<p>So we took rust. It is a system programming language, you can control the
+memory footprint of your software, you can cross compile to so much
+different platform (including wasm, intel, powerpc, arm...). You can find
+a lot of reasons
+<a href="https://medium.com/mozilla-tech/why-rust-is-the-most-loved-language-by-developers-666add782563">here</a>,
+<a href="https://www.reddit.com/r/rust/comments/4l44z3/why_should_i_use_rust/">there</a>
+or <a href="https://medium.com/paritytech/why-rust-846fd3320d3f">there</a>.</p>
+<h1 id="one-core-language-to-support-them-all">One core language to support them all</h1>
+<p>Not everything will be written in Rust. It is a common mistake to believe that
+there can be one language above them all. While Rust is very powerful and
+has a rich ecosystem, it is still easier to create an iOS mobile app in native
+Swift, an android mobile app in Java or a WebApp in JavaScript. Where Rust is
+great is that it can easily integrate in these languages.</p>
+<p>One recent project is the <a href="https://github.com/input-output-hk/rust-cardano"><code>rust-cardano</code></a>
+project. Most of the code is written in Rust. Yet it was easy and cheap to
+generate a <a href="https://github.com/input-output-hk/rust-cardano/tree/master/cardano-c">C library</a>
+or <a href="https://github.com/input-output-hk/js-cardano-wasm">JavaScript bindings</a>.</p>
+<p>This is the same JS Bindings I talk about in <a href="https://primetype.co.uk/blog/cardano-wallet/">this blog post</a></p>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <hr class="my-4">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 text-start">
+            
+            <a class="btn btn-outline-danger" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog&#x2F;sharesafe&#x2F;" data-toggle="tooltip"
+                data-placement="bottom" title="ShareSafe -- ready to use secret sharing">
+                <i class="fas fa-arrow-left"></i>
+                ShareSafe -- ready t…
+            </a>
+            
+        </div>
+        <div class="col-6 text-end">
+            
+
+            <a class="btn btn-outline-danger" href="https:&#x2F;&#x2F;primetype.co.uk&#x2F;blog&#x2F;cardano-wallet&#x2F;" data-toggle="tooltip"
+                data-placement="bottom" title="The Cardano Wallet">
+                The Cardano Wallet
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-dark text-center text-lg-start text-white">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!--Grid row-->
+            <div class="row mt-4">
+                <!--Grid column-->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Legals</h5>
+
+                    <p>
+                        <em>Prime Type Ltd</em> is a limited company registered in
+                        <em>England and Wales</em>.<br>
+                        <em>Registration number&nbsp;10597758</em>.<br>
+                        <em>VAT registration number&nbsp;295196950.</em>
+                    </p>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Write to us</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="mailto:info@primetype.co.uk" class="text-white">
+                                <i class="fas fa-at fa-fw fa-sm me-2"></i>
+                                info@primetype.co.uk
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/primetype" target="_blank" class="text-white">
+                                <i class="fab fa-github fa-fw fa-sm me-2"></i>
+                                Check us out on github
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            Copyright
+            <i class="far fa-copyright"></i>
+            2017-2021 Prime Type Ltd
+            <br>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,38 +1,36 @@
 {% extends "index.html" %}
 
 {% block content %}
-<section class="section page" id="blog">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-md-8 offset-md-2">
-                {% for page in section.pages %}
-                <div class="card mb-3">
-                    <a class="text-success" href="{{ page.permalink }}">
-                        <div class="card-header">
-                            <h2>
-                                {% if page.extra.fa %}
-                                <i class="fas {{page.extra.fa}}"></i>
-                                {% else %}
-                                <i class="fas fa-newspaper"></i>
-                                {% endif %}
-                                {{ page.title }}
-                            </h2>
-                            <p class="card-text"><small
-                                    class="text-muted">{{ page.date | date(format="%A %d %B %Y") }}</small></p>
+<div class="container container-fluid py-5 page" id="blog">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 offset-md-2">
+            {% for page in section.pages %}
+            <div class="card mb-3">
+                <a class="text-danger" href="{{ page.permalink }}">
+                    <div class="card-header">
+                        <h2>
+                            {% if page.extra.fa %}
+                            <i class="fas {{page.extra.fa}}"></i>
+                            {% else %}
+                            <i class="fas fa-newspaper"></i>
+                            {% endif %}
+                            {{ page.title }}
+                        </h2>
+                        <p class="card-text"><small class="text-muted">{{ page.date | date(format="%A %d %B %Y")
+                                }}</small></p>
 
-                        </div>
-                    </a>
-                    <div class="card-body">
-                        <p class="card-text"> {{ page.summary | safe }} </p>
-                        <a class="text-success" href="{{ page.permalink }}#continue-reading">
-                            <i class="fab fa-readme"></i>
-                            Continue Reading
-                        </a>
                     </div>
+                </a>
+                <div class="card-body">
+                    <p class="card-text"> {{ page.summary | safe }} </p>
+                    <a class="text-success" href="{{ page.permalink }}#continue-reading">
+                        <i class="fab fa-readme"></i>
+                        Continue Reading
+                    </a>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
     </div>
-</section>
+</div>
 {% endblock content %}

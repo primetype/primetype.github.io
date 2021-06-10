@@ -5,7 +5,7 @@ description = "Practical Software for real world projects"
 template="index.html"
 
 [extra.fa]
-class = "fas fa-7x fa-paper-plane"
+class = "fas fa-paper-plane"
 
 +++
 
